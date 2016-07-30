@@ -8,7 +8,6 @@ iptables
 net-tools
 
 dropbear
-dropbear-ssh
 dropbear-scp
 
 tmux

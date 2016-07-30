@@ -3,3 +3,8 @@ Don't forget to create and install an abuild key:
 
 To build:
   make PROFILE=alpine-xen iso
+
+Notes:
+  It seems there are some problems to boot Xen with Alpine 3.4 (reboot when scrubbing memory) but Alpine 3.3 is fine.
+  Seems related to syslinux.
+
