@@ -1,0 +1,5 @@
+Don't forget to create and install an abuild key:
+  abuild-keygen -a -i
+
+To build:
+  make PROFILE=alpine-xen iso
