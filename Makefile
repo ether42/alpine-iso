@@ -243,6 +243,7 @@ $(SYSLINUX_CFG): $(ALL_MODLOOP_DIRSTAMP)
 	@echo "$(SYSLINUX_SERIAL)" >$@
 	@echo "timeout 20" >>$@
 	@echo "prompt 1" >>$@
+	@echo >>$@
 ifeq ($(PROFILE), alpine-xen)
 	@echo "default xen-$(KERNEL_FLAVOR_DEFAULT)" >>$@
 	@for flavor in $(KERNEL_FLAVOR); do \
@@ -250,14 +251,15 @@ ifeq ($(PROFILE), alpine-xen)
 		echo "	kernel /$(ISOLINUX_DIR)/mboot.c32"; \
 		echo "	append /boot/xen.gz $(XEN_PARAMS) --- /boot/$(call VMLINUZ_NAME,$$flavor) modloop=/boot/modloop-$$flavor modules=loop,squashfs,sd-mod,usb-storage $(BOOT_OPTS) --- /boot/initramfs-$$flavor"; \
 	done >>$@
+	@echo >>$@
 else
 	@echo "default $(KERNEL_FLAVOR_DEFAULT)" >>$@
+endif
 	@for flavor in $(KERNEL_FLAVOR); do \
 		echo "label $$flavor"; \
 		echo "	kernel /boot/$(call VMLINUZ_NAME,$$flavor)";\
 		echo "	append initrd=/boot/initramfs-$$flavor modloop=/boot/modloop-$$flavor modules=loop,squashfs,sd-mod,usb-storage quiet $(BOOT_OPTS)"; \
 	done >>$@
-endif
 
 clean-syslinux:
 	@rm -f $(SYSLINUX_CFG) $(ISOLINUX_BIN)
